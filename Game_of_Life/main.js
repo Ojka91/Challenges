@@ -80,10 +80,13 @@ var myApp = new Vue({
             }
         },
         start(){
-            this.gameRunning = setInterval(this.startGame, 500);
+            this.gameRunning = setInterval(this.startGame, 300);
         },
         stop(){
             clearInterval(this.gameRunning);
+        },
+        back(){
+            this.gameStart = false;
         },
         startGame() {
             
