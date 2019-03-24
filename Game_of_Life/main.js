@@ -7,7 +7,7 @@ var myApp = new Vue({
         lifeChanging: [],
         gameStart: false,
         gameRunning: "",
-       
+
     },
 
     methods: {
@@ -26,7 +26,7 @@ var myApp = new Vue({
             }
             this.createBoard();
         },
-        createRandomGame(){
+        createRandomGame() {
             for (var x = 0; x < this.rows.length; x++) {
                 for (var j = 0; j < this.columns.length; j++) {
                     var random = Math.random() >= 0.9;
@@ -43,11 +43,12 @@ var myApp = new Vue({
                 }
             }
         },
-        clearBoard(){
+        clearBoard() {
+            this.stop();
             for (var x = 0; x < this.rows.length; x++) {
                 for (var j = 0; j < this.columns.length; j++) {
                     this.board[x][j] = false;
-                    if(document.getElementById(x + "S" + j).classList.contains("cellLive")){
+                    if (document.getElementById(x + "S" + j).classList.contains("cellLive")) {
                         document.getElementById(x + "S" + j).classList.remove("cellLive")
                     }
                 }
@@ -60,42 +61,45 @@ var myApp = new Vue({
                     var print = this.board[x][j];
                     if (print) {
                         document.getElementById(x + "S" + j).classList.add("cellLive");
-                    }
-                    else{
-                        if(document.getElementById(x + "S" + j).classList.contains("cellLive")){
+                    } else {
+                        if (document.getElementById(x + "S" + j).classList.contains("cellLive")) {
                             document.getElementById(x + "S" + j).classList.remove("cellLive")
                         }
                     }
                 }
             }
-        
+
         },
-        drawPattern(rows, columns){
-            if(this.board[rows][columns]){
-                document.getElementById(rows+"S"+columns).classList.remove("cellLive")
+        drawPattern(rows, columns) {
+            if (this.board[rows][columns]) {
+                document.getElementById(rows + "S" + columns).classList.remove("cellLive")
                 this.board[rows][columns] = !this.board[rows][columns]
-            }else{
-                document.getElementById(rows+"S"+columns).classList.add("cellLive")
+            } else {
+                document.getElementById(rows + "S" + columns).classList.add("cellLive")
                 this.board[rows][columns] = !this.board[rows][columns]
             }
         },
-        start(){
+        start() {
             this.gameRunning = setInterval(this.startGame, 300);
         },
-        stop(){
+        stop() {
             clearInterval(this.gameRunning);
         },
-        back(){
+        back() {
+            this.stop();
+            this.board = [];
+            this.rows = [];
+            this.columns = [];
             this.gameStart = false;
         },
         startGame() {
-            
+
             this.lifeChanging = [];
             for (var x = 0; x < this.rows.length; x++) {
                 for (var j = 0; j < this.columns.length; j++) {
                     var cp = this.board[x][j];
-                    if (x < this.rows.length-1) {
-                        var neighbor1 = this.board[x +1][j];
+                    if (x < this.rows.length - 1) {
+                        var neighbor1 = this.board[x + 1][j];
                     }
                     if (x != 0) {
                         var neighbor2 = this.board[x - 1][j];
@@ -106,13 +110,13 @@ var myApp = new Vue({
                     if (j != 0) {
                         var neighbor4 = this.board[x][j - 1];
                     }
-                    if (x < this.rows.length-1 && j < this.columns.length) {
-                        var neighbor5 = this.board[x +1][j + 1];
+                    if (x < this.rows.length - 1 && j < this.columns.length) {
+                        var neighbor5 = this.board[x + 1][j + 1];
                     }
                     if (x != 0 && j < this.columns.length) {
                         var neighbor6 = this.board[x - 1][j + 1];
                     }
-                    if (x < this.rows.length-1 && j != 0) {
+                    if (x < this.rows.length - 1 && j != 0) {
                         var neighbor7 = this.board[x + 1][j - 1];
                     }
                     if (x != 0 && j != 0) {
@@ -122,7 +126,7 @@ var myApp = new Vue({
                     if (cp) {
                         if (neighbors.filter(Boolean).length >= 4 || neighbors.filter(Boolean).length <= 1) {
                             this.lifeChanging.push([x, j]);
-                           // document.getElementById(x + "S" + j).classList.remove("cellLive");
+                            // document.getElementById(x + "S" + j).classList.remove("cellLive");
                         }
                     }
                     if (cp == false) {
@@ -133,11 +137,11 @@ var myApp = new Vue({
                     }
                 }
             }
-            
+
             for (var q = 0; q < this.lifeChanging.length; q++) {
 
                 this.board[this.lifeChanging[q][0]][this.lifeChanging[q][1]] = !this.board[this.lifeChanging[q][0]][this.lifeChanging[q][1]]
-               
+
             }
             this.printTable();
         }

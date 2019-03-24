@@ -13,29 +13,34 @@
 
 <body>
     <div id="app">
-        <div  v-if="!gameStart">
+        <div v-if="!gameStart">
 
-        
+
             <div class="row title">
-                    <p class="creationText" class="col-12">Create Board</p>
-                </div>
-        <div class="creation">
-            
-            <div class="row">
-                <form action="" class="form">
-                    <div class="row">
-                        <input type="number" name="Columns" placeholder="Columns" id="columns" required class="col-6">
-                        <input type="number" name="Rows" placeholder="Rows" id="rows" required class="col-6">
-                    </div>
-<div class="row">
-
-    <input type="submit" value="Start!" @click="generateBoard()" class="col-12 submit">
-</div>
-                </form>
+                <h1 class="creationText" class="col-12">Game Of Life</h1>
             </div>
+            <div class="row byOjka">
+                
+                <p class="" class="col-12">By Ojka</p>
+            </div>
+            <div class="creation">
 
+                <div class="row">
+                    <form action="" class="form">
+                        <div class="row">
+                            <input type="number" name="Columns" placeholder="Columns" id="columns" required
+                                class="col-6">
+                            <input type="number" name="Rows" placeholder="Rows" id="rows" required class="col-6">
+                        </div>
+                        <div class="row">
+
+                            <input type="submit" value="Start!" @click="generateBoard()" class="col-12 submit">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
         </div>
-    </div>
         <div v-if="gameStart">
             <div class="playingButtons">
                 <button class="btn-info" @click="createRandomGame()">Random Patterns</button>
