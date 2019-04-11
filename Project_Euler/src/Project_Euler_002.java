@@ -18,7 +18,7 @@ public class Project_Euler_002 {
     public Integer getResult() {
         return result;
     }
-    
+
     public Project_Euler_002(Integer num1, Integer num2){
         array.add(num1);
         array.add(num2);
